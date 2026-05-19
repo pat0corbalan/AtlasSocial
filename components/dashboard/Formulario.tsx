@@ -20,6 +20,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useApp } from "@/lib/store"
+import MapaInteractivo from "@/components/MapaInteractivo"
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -168,14 +169,24 @@ function StepDomicilio({
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <div>
+         <div>
           <label className={labelClass}>Barrio</label>
-          <input
+          <select
             className={inputClass}
-            placeholder="Villa del Carmen"
             value={form.barrio}
             onChange={(e) => setForm((f) => ({ ...f, barrio: e.target.value }))}
-          />
+          >
+            <option value="">Seleccionar barrio</option>
+            <option value="Casanova">Casanova</option>
+            <option value="Belgrano">Belgrano</option>
+            <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+            <option value="Centro">Centro</option>
+            <option value="Sur">Sur</option>
+            <option value="Sauce">Sauce</option>
+            <option value="Challua">Challua</option>
+            <option value="Lavalle Norte">Lavalle Norte</option>
+            <option value="Dolores">Dolores</option>
+          </select>
         </div>
         <div>
           <label className={labelClass}>Localidad</label>
@@ -214,28 +225,95 @@ function StepGeolocalizacion({
   setForm: React.Dispatch<React.SetStateAction<FormState>>
   locked: boolean
 }) {
+  // Estado local para manejar el text o estado de carga del botón de ubicación
+  const [loadingLocation, setLoadingLocation] = useState(false)
+
+  // Forzamos el parseo seguro de strings a floats para Leaflet
+  const numericLat = parseFloat(form.lat) || -34.6037
+  const numericLng = parseFloat(form.lng) || -58.3816
+
+  const handleCoordsChange = (newLat: string, newLng: string) => {
+    setForm((f) => ({ ...f, lat: newLat, lng: newLng }))
+  }
+
+  // Función para obtener la ubicación del GPS/Navegador
+  const handleGetActualLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Tu navegador no soporta la geolocalización.")
+      return
+    }
+
+    setLoadingLocation(true)
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const currentLat = position.coords.latitude.toFixed(6)
+        const currentLng = position.coords.longitude.toFixed(6)
+        
+        setForm((f) => ({
+          ...f,
+          lat: currentLat,
+          lng: currentLng,
+        }))
+        setLoadingLocation(false)
+      },
+      (error) => {
+        console.error(error)
+        setLoadingLocation(false)
+        
+        // Manejo amigable de errores comunes de GPS
+        if (error.code === 1) {
+          alert("Permiso denegado. Por favor, habilita los permisos de ubicación en tu navegador.")
+        } else {
+          alert("No se pudo obtener tu ubicación actual de forma precisa.")
+        }
+      },
+      {
+        enableHighAccuracy: true, // Fuerza al dispositivo a usar GPS si está disponible en vez de solo redes móviles
+        timeout: 10000,           // Tiempo máximo de espera: 10 segundos
+        maximumAge: 0             // No usar ubicaciones viejas guardadas en caché
+      }
+    )
+  }
+
   return (
     <div className="space-y-4">
-      <StepHeading icon={<MapPin className="w-5 h-5" />} title="Geolocalización" />
+      <div className="flex items-center justify-between mb-2">
+        <StepHeading icon={<MapPin className="w-5 h-5" />} title="Geolocalización" />
+        
+        {/* 🚀 Botón de Ubicación Actual (Solo si no está bloqueado por el plan) */}
+        {!locked && (
+          <button
+            type="button"
+            onClick={handleGetActualLocation}
+            disabled={loadingLocation}
+            className={cn(
+              "text-xs font-bold px-3 py-1.5 rounded-lg border border-primary text-primary transition-all flex items-center gap-1.5",
+              loadingLocation 
+                ? "opacity-50 cursor-not-allowed bg-secondary border-border text-muted-foreground animate-pulse" 
+                : "hover:bg-primary hover:text-primary-foreground active:scale-95"
+            )}
+          >
+            <MapPin className="w-3.5 h-3.5" />
+            {loadingLocation ? "Obteniendo..." : "Mi ubicación"}
+          </button>
+        )}
+      </div>
 
       {locked ? (
         <PlanLockNotice />
       ) : (
         <>
-          {/* Simulated map tile */}
-          <div className="w-full h-40 bg-accent rounded-xl flex items-center justify-center relative overflow-hidden border border-border">
-            <div className="absolute inset-0 grid grid-cols-8 grid-rows-5 opacity-20 pointer-events-none">
-              {Array.from({ length: 40 }).map((_, i) => (
-                <div key={i} className="border border-primary/20" />
-              ))}
-            </div>
-            <div className="relative flex flex-col items-center gap-1">
-              <MapPin className="w-9 h-9 text-primary drop-shadow" />
-              <span className="text-xs font-mono text-muted-foreground">
-                {form.lat}, {form.lng}
-              </span>
-            </div>
-          </div>
+          {/* Mapa dinámico sin SSR */}
+          <MapaInteractivo 
+            lat={numericLat} 
+            lng={numericLng} 
+            onChangeCoords={handleCoordsChange} 
+          />
+
+          <p className="text-xs text-muted-foreground text-center">
+            Puedes arrastrar el marcador o hacer clic en cualquier punto del mapa para actualizar las coordenadas.
+          </p>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -557,13 +635,39 @@ export function Formulario() {
 
   const isLastStep = step === STEPS.length
 
-  const handleNext = () => {
-    if (isLastStep) {
-      setSubmitted(true)
-    } else {
-      setStep((s) => s + 1)
+  const handleNext = async () => {
+  if (isLastStep) {
+    try {
+      const response = await fetch("/api/relevamientos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...form,
+          voto,
+          necesidades,
+          infraestructura: infra,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.ok) {
+        setSubmitted(true)
+      } else {
+        alert("Error al guardar")
+      }
+    } catch (error) {
+      console.error(error)
+      alert("Error del servidor")
     }
+
+    return
   }
+
+  setStep((s) => s + 1)
+}
 
   const handleBack = () => setStep((s) => s - 1)
 

@@ -1,10 +1,5 @@
-import { AppProvider } from "@/lib/store"
-import { DashboardShell } from "@/components/dashboard/DashboardShell"
+import { redirect } from "next/navigation"
 
-export default function Page() {
-  return (
-    <AppProvider>
-      <DashboardShell />
-    </AppProvider>
-  )
+export default function HomePage() {
+  redirect("/login")
 }
