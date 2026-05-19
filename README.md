@@ -396,3 +396,7 @@ El presupuesto puede variar según nuevas funcionalidades o integraciones adicio
 # 📞 Contacto
 
 Para consultas, presupuestos o nuevas funcionalidades, comunicarse mediante los canales correspondientes.
+
+MONGODB_URI=mongodb+srv://patocorbalan1999:atlas2409@atlasdb.dhwuxbr.mongodb.net/censo_barrial
+
+JWT_SECRET=clavesecreta123
