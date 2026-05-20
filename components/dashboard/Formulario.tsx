@@ -17,6 +17,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Check,
+  Shield,
+  Trees,
+  Cross,
+  Trash,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useApp } from "@/lib/store"
@@ -37,6 +41,12 @@ interface FormState {
   adultosMayores: string
   condicionVivienda: string
   observaciones: string
+
+   // Datos de contacto
+  nombreContacto: string
+  telefono: string
+  whatsapp: string
+  email: string
 }
 
 // ─── Static data ────────────────────────────────────────────────────────────
@@ -44,9 +54,10 @@ interface FormState {
 const STEPS = [
   { id: 1, label: "Domicilio",      short: "Domicilio",  icon: Home     },
   { id: 2, label: "Ubicación",      short: "Ubic.",      icon: MapPin   },
-  { id: 3, label: "Familia",        short: "Familia",    icon: Users    },
-  { id: 4, label: "Infraestructura",short: "Infra.",     icon: Zap      },
-  { id: 5, label: "Intención voto", short: "Voto",       icon: Vote     },
+  { id: 3, label: "Contacto",       short: "Contacto", icon: Users },
+  { id: 4, label: "Familia",        short: "Familia",    icon: Users    },
+  { id: 5, label: "Infraestructura",short: "Infra.",     icon: Zap      },
+  { id: 6, label: "Intención voto", short: "Voto",       icon: Vote     },
 ]
 
 const intencionVotoOptions = [
@@ -66,11 +77,15 @@ const necesidadesOptions = [
 ]
 
 const infraestructuraItems = [
-  { id: "agua",      label: "Agua corriente", Icon: Droplets },
+  { id: "agua",      label: "Agua potable", Icon: Droplets },
   { id: "cloacas",   label: "Cloacas",        Icon: Trash2   },
   { id: "gas",       label: "Gas natural",    Icon: Zap      },
   { id: "pavimento", label: "Pavimento",      Icon: MapPin   },
   { id: "alumbrado", label: "Alumbrado",      Icon: Zap      },
+  { id: "seguridad", label: "Seguridad",              Icon: Shield     },
+  { id: "espacio",   label: "Espacio verde",          Icon: Trees      },
+  { id: "sala",      label: "Sala de aux",            Icon: Cross      },
+  { id: "basura",    label: "Recolección de basura",  Icon: Trash      },
 ]
 
 // ─── Reusable input styles ───────────────────────────────────────────────────
@@ -211,6 +226,86 @@ function StepDomicilio({
           <option value="mixta">Mixta</option>
           <option value="container">Container / Villa</option>
         </select>
+      </div>
+    </div>
+  )
+}
+
+function StepContacto({
+  form,
+  setForm,
+}: {
+  form: FormState
+  setForm: React.Dispatch<React.SetStateAction<FormState>>
+}) {
+  return (
+    <div className="space-y-4">
+      <StepHeading
+        icon={<Users className="w-5 h-5" />}
+        title="Datos de Contacto"
+      />
+
+      <div>
+        <label className={labelClass}>Nombre y apellido</label>
+        <input
+          className={inputClass}
+          placeholder="Juan Pérez"
+          value={form.nombreContacto}
+          onChange={(e) =>
+            setForm((f) => ({
+              ...f,
+              nombreContacto: e.target.value,
+            }))
+          }
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className={labelClass}>Teléfono</label>
+          <input
+            className={inputClass}
+            placeholder="3851234567"
+            value={form.telefono}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                telefono: e.target.value,
+              }))
+            }
+          />
+        </div>
+
+        <div>
+          <label className={labelClass}>WhatsApp</label>
+          <input
+            className={inputClass}
+            placeholder="3851234567"
+            value={form.whatsapp}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                whatsapp: e.target.value,
+              }))
+            }
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className={labelClass}>Email</label>
+        <input
+          type="email"
+          className={inputClass}
+          placeholder="correo@email.com"
+          value={form.email}
+          onChange={(e) =>
+            setForm((f) => ({
+              ...f,
+              email: e.target.value,
+            }))
+          }
+        />
       </div>
     </div>
   )
@@ -375,7 +470,7 @@ function StepFamilia({
                     }))
                   }
                 >
-                  −
+                  
                 </button>
                 <span className="w-6 text-center text-lg font-bold text-foreground tabular-nums">
                   {form[key as keyof FormState]}
@@ -597,13 +692,30 @@ export function Formulario() {
   const [voto, setVoto]           = useState("")
   const [necesidades, setNecesidades] = useState<string[]>([])
   const [infra, setInfra]         = useState<string[]>([])
-  const [form, setForm]           = useState<FormState>({
-    calle: "", numero: "", piso: "", barrio: "", localidad: "",
-    lat: "-34.6037", lng: "-58.3816",
-    adultos: "2", menores: "1", adultosMayores: "0",
+   const [form, setForm] = useState<FormState>({
+    calle: "",
+    numero: "",
+    piso: "",
+    barrio: "",
+    localidad: "",
+
+    // NUEVOS CAMPOS
+    nombreContacto: "",
+    telefono: "",
+    whatsapp: "",
+    email: "",
+
+    lat: "-34.6037",
+    lng: "-58.3816",
+
+    adultos: "2",
+    menores: "1",
+    adultosMayores: "0",
+
     condicionVivienda: "precaria",
     observaciones: "",
   })
+
 
   const isGeoLocked  = plan === "basico"
   const isVotoLocked = plan === "basico"
@@ -625,13 +737,29 @@ export function Formulario() {
     setNecesidades([])
     setInfra([])
     setForm({
-      calle: "", numero: "", piso: "", barrio: "", localidad: "",
-      lat: "-34.6037", lng: "-58.3816",
-      adultos: "2", menores: "1", adultosMayores: "0",
-      condicionVivienda: "precaria",
-      observaciones: "",
-    })
-  }
+    calle: "",
+    numero: "",
+    piso: "",
+    barrio: "",
+    localidad: "",
+
+    // NUEVOS CAMPOS
+    nombreContacto: "",
+    telefono: "",
+    whatsapp: "",
+    email: "",
+
+    lat: "-34.6037",
+    lng: "-58.3816",
+
+    adultos: "2",
+    menores: "1",
+    adultosMayores: "0",
+
+    condicionVivienda: "precaria",
+    observaciones: "",
+  })
+}
 
   const isLastStep = step === STEPS.length
 
@@ -697,6 +825,12 @@ export function Formulario() {
           <StepGeolocalizacion form={form} setForm={setForm} locked={isGeoLocked} />
         )}
         {step === 3 && (
+          <StepContacto
+            form={form}
+            setForm={setForm}
+          />
+        )}
+        {step === 4 && (
           <StepFamilia
             form={form}
             setForm={setForm}
@@ -704,10 +838,10 @@ export function Formulario() {
             toggleNecesidad={toggleNecesidad}
           />
         )}
-        {step === 4 && (
+        {step === 5 && (
           <StepInfraestructura infra={infra} toggleInfra={toggleInfra} />
         )}
-        {step === 5 && (
+        {step === 6 && (
           <StepVoto voto={voto} setVoto={setVoto} locked={isVotoLocked} />
         )}
       </div>
