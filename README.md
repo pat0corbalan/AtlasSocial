@@ -4,43 +4,41 @@ Aplicación web para relevamiento territorial y gestión de información social 
 
 ---
 
-# 📌 Planes Disponibles
+# 📌 Descripción General
 
-- Plan Básico
-- Plan Intermedio
-- Plan Completo
+El sistema permite registrar información territorial, social y electoral mediante formularios digitales, facilitando la organización y administración de datos de viviendas, grupos familiares, necesidades barriales y votantes.
 
----
-
-# 🟢 PLAN BÁSICO
-
-## Descripción
-
-Desarrollo de una aplicación web básica para relevamiento barrial y registro de información social/electoral, accesible desde celular o PC mediante usuario y contraseña.
+Está orientado a equipos de relevamiento, organizaciones sociales, agrupaciones políticas y gestión territorial.
 
 ---
 
-## Funcionalidades Incluidas
+# ✅ Funcionalidades Incluidas
 
-### 🔐 Login de Usuarios
-- Acceso con usuario y contraseña
+## 🔐 Acceso al Sistema
+- Login con usuario y contraseña
+- Gestión básica de usuarios
+- Acceso seguro al sistema
 
-### 📝 Formulario de Censo
-- Fecha
-- Barrio
+---
+
+## 📝 Censo Barrial
+- Fecha automática
+- Registro de barrio
 - Domicilio y calle
-- Geolocalización en mapa
+- Registro de viviendas
 
-### 👨‍👩‍👧 Grupo Familiar
+---
+
+## 👨‍👩‍👧 Grupo Familiar
 - Mayores de 16 años
 - Menores de 16 años
 - Personas habilitadas para votar
 - Discapacitados
 - Personas con asistencia especial
 
-### 🏠 Necesidades
+---
 
-#### Familia
+## 🏠 Necesidades de la Familia
 - Trabajo
 - Salud
 - Educación
@@ -48,7 +46,9 @@ Desarrollo de una aplicación web básica para relevamiento barrial y registro d
 - Alimentación
 - Otras
 
-#### Barrio
+---
+
+## 🌆 Necesidades del Barrio
 - Agua potable
 - Pavimentación
 - Alumbrado público
@@ -58,132 +58,37 @@ Desarrollo de una aplicación web básica para relevamiento barrial y registro d
 - Sala de primeros auxilios
 - Otras
 
-### 📞 Datos de Contacto
+---
+
+## 📞 Datos de Contacto
 - Nombre y apellido
 - Número de celular
 
-### 🗳️ Intención de Voto
+---
+
+## 🗳️ Intención de Voto
 - Favorable
 - Dudoso
 - En contra
 - Otros
 
-### 📊 Panel Básico
+---
+
+## 📌 Observaciones
+- Notas y comentarios del encuestador
+
+---
+
+## 📊 Panel Administrativo
 - Casas visitadas
 - Cantidad de votantes
-- Listado tipo padrón
-
----
-
-## 🛠️ Tecnologías
-- Next.js
-- MongoDB
-
----
-
-## ⏳ Tiempo Estimado
-10 a 20 días aproximadamente.
-
----
-
-## 💰 Presupuesto
-### Versión básica funcional
-**USD 500**
-
-### Incluye
-- Sistema online funcional
-- Base de datos
-- Login
-- Formularios
-- Listado padrón
-- Panel básico
-
----
-
-## ❌ No Incluye
-- Trabajo offline
-- Aplicación Android nativa
-- Reportes avanzados
-- Exportación PDF/Excel
-- Roles complejos
-- Dashboard avanzado
-
----
-
-## 💳 Forma de Pago
-- 50% al iniciar
-- 50% al entregar
-
----
-
-# 🟡 PLAN INTERMEDIO
-
-## Descripción
-
-Desarrollo de una aplicación web para relevamiento barrial y gestión territorial, accesible desde celular, tablet y PC, con carga de información social y electoral en tiempo real.
-
-El sistema permitirá registrar domicilios, grupos familiares, necesidades sociales, intención de voto y geolocalización de viviendas, además de contar con panel administrativo y listado tipo padrón.
-
----
-
-## Funcionalidades Incluidas
-
-### 🔐 Acceso al Sistema
-- Login con usuario y contraseña
-- Gestión básica de usuarios encuestadores
-
-### 📝 Censo Barrial
-- Fecha automática
-- Selección de barrio
-- Domicilio y calle
-- Geolocalización automática
-- Visualización en mapa
-
-### 👨‍👩‍👧 Grupo Familiar
-- Mayores de 16 años
-- Menores de 16 años
-- Personas habilitadas para votar
-- Discapacitados
-- Personas con asistencia especial
-
-### 🏠 Necesidades de la Familia
-- Trabajo
-- Salud
-- Educación
-- Vivienda
-- Alimentación
-- Otras
-
-### 🌆 Necesidades del Barrio
-- Agua potable
-- Pavimentación
-- Alumbrado público
-- Recolección de basura
-- Seguridad
-- Espacios verdes
-- Sala de primeros auxilios
-- Otras
-
-### 📞 Datos de Contacto
-- Apellido y nombre
-- Número de celular
-
-### 🗳️ Intención de Voto
-- Favorable
-- Dudoso
-- En contra
-- Otros
-
-### 📌 Observaciones
-- Notas del encuestador
-
-### 📊 Panel Administrativo
-- Casas visitadas
-- Totales de votantes habilitados
+- Estadísticas básicas
 - Filtros por barrio
 - Búsqueda de registros
 
-### 📋 Padrón / Listado de Votantes
+---
+
+## 📋 Padrón / Listado
 - Nombre y apellido
 - Barrio
 - Dirección
@@ -193,167 +98,48 @@ El sistema permitirá registrar domicilios, grupos familiares, necesidades socia
 
 ---
 
-## 🛠️ Tecnologías
+# 🛠️ Tecnologías Utilizadas
+
 - Next.js
 - MongoDB
-- Integración con mapas
+- API REST
+- JWT Authentication
+- Responsive Design
 
 ---
 
-## 📱 Modalidad
-Sistema 100% online y responsive para celulares y PC.
+# 📱 Compatibilidad
+
+✅ Celulares  
+✅ Tablets  
+✅ PC
 
 ---
 
-## ⏳ Tiempo Estimado
-15 a 30 días aproximadamente.
+# 🌐 Modalidad
+
+Sistema 100% online y responsive.
 
 ---
 
-## 💰 Presupuesto
-### Versión intermedia
-**USD 800**
+# 🗺️ Geolocalización y Google Maps
 
-### Incluye
-- Sistema completo online
-- Login y usuarios
-- Panel administrativo
-- Geolocalización
-- Listado tipo padrón
-- Hosting y configuración inicial
+La versión estándar del sistema NO incluye integración con Google Maps ni geolocalización.
 
----
+La integración con mapas puede agregarse como funcionalidad opcional.
 
-## ❌ No Incluye
-- Funcionamiento offline
-- Aplicación Android nativa
-- Reportes avanzados
-- Exportación PDF/Excel
-- Integraciones externas
+## Opciones disponibles:
+- Uso de cuenta propia del cliente en Google Cloud
+- Uso de cuenta administrada por el proveedor del sistema
+
+Los costos mensuales generados por Google Maps API deberán ser abonados por el cliente según el consumo del sistema.
 
 ---
 
-## 💳 Forma de Pago
-- 50% al iniciar
-- 50% al finalizar y entregar el sistema
+# 🚀 Funcionalidades Opcionales Futuras
 
----
-
-# 🔴 PLAN COMPLETO
-
-## Descripción del Sistema
-
-Desarrollo de una aplicación web online para relevamiento territorial y censo barrial, orientada a la carga y gestión de información social y electoral.
-
-La plataforma permitirá registrar viviendas, grupos familiares, necesidades sociales, intención de voto y geolocalización de domicilios, además de contar con paneles de consulta y estadísticas.
-
----
-
-## Funcionalidades Incluidas
-
-### 🔐 Acceso al Sistema
-- Login con usuario y contraseña
-- Gestión de usuarios encuestadores y administradores
-
-### 📝 Censo Barrial
-- Fecha de carga
-- Selección de barrio
-- Domicilio y calle
-- Geolocalización automática
-- Ubicación en mapa
-
-### 👨‍👩‍👧 Grupo Familiar
-- Mayores de 16 años
-- Menores de 16 años
-- Personas habilitadas para votar
-- Discapacitados
-- Personas con asistencia especial
-
-### 🏠 Necesidades de la Familia
-- Trabajo
-- Salud
-- Educación
-- Vivienda
-- Alimentación
-- Otras
-
-### 🌆 Necesidades del Barrio
-- Agua potable
-- Pavimentación
-- Alumbrado público
-- Recolección de basura
-- Seguridad
-- Espacios verdes
-- Sala de primeros auxilios
-- Otras
-
-### 📞 Datos de Contacto
-- Apellido y nombre
-- Número de celular
-
-### 🗳️ Intención de Voto
-- Favorable
-- Dudoso
-- En contra
-- Otros
-
-### 📌 Observaciones
-- Notas del encuestador
-
-### 📊 Panel Administrativo
-- Totales acumulados diarios
-- Casas visitadas
-- Votantes habilitados
-- Estadísticas por barrio
-- Filtros y búsquedas
-
-### 📋 Padrón / Listado de Votantes
-- Nombre y apellido
-- Barrio
-- Dirección
-- Teléfono
-- Cantidad de votantes
-- Intención de voto
-- Ubicación geográfica
-
----
-
-## 🛠️ Tecnologías a Utilizar
-- Frontend: Next.js
-- Backend/API: Next.js API Routes
-- Base de datos: MongoDB
-- Autenticación segura
-- Integración con Google Maps
-
----
-
-## 📱 Modalidad
-Sistema 100% online y responsive, compatible con:
-- Celulares
-- Tablets
-- PC
-
----
-
-## ⏳ Tiempo Estimado de Desarrollo
-Entre 20 y 40 días aproximadamente, según ajustes y cambios solicitados durante el desarrollo.
-
----
-
-## 💰 Presupuesto Estimado
-### Versión inicial funcional
-**USD 1.200**
-
-### Incluye
-- Sistema completo operativo
-- Panel administrador
-- Geolocalización
-- Padrón de votantes
-- Hosting inicial y configuración básica
-
----
-
-## 🚀 Opcionales Futuros
+- Geolocalización de domicilios
+- Mapas interactivos
 - Aplicación Android nativa
 - Trabajo offline sin internet
 - Exportación Excel/PDF
@@ -363,40 +149,57 @@ Entre 20 y 40 días aproximadamente, según ajustes y cambios solicitados durant
 
 ---
 
-## 💳 Forma de Pago Sugerida
+# ⏳ Tiempo Estimado de Desarrollo
+
+Entre 15 y 30 días aproximadamente, dependiendo de ajustes y funcionalidades adicionales solicitadas.
+
+---
+
+# 💰 Presupuesto
+
+## Sistema Completo
+**USD 1.000**
+
+---
+
+## ✅ Incluye
+- Sistema completo funcional
+- Base de datos
+- Panel administrativo
+- Formularios de censo
+- Gestión de usuarios
+- Padrón/listados
+- Configuración inicial
+- Hosting básico inicial
+
+---
+
+## ❌ No Incluye
+- Aplicación Android nativa
+- Funcionamiento offline
+- Reportes avanzados
+- Exportación PDF/Excel
+- Integraciones externas
+- Google Maps API
+
+---
+
+# 💳 Forma de Pago
+
 - 50% al iniciar
 - 50% al finalizar y entregar el sistema
 
 ---
 
-## 📌 Observaciones
-El presupuesto puede variar según nuevas funcionalidades o integraciones adicionales solicitadas posteriormente.
+# 📌 Observaciones
+
+El presupuesto puede variar según funcionalidades adicionales o integraciones futuras solicitadas posteriormente.
 
 ---
 
-# 👨‍💻 Tecnologías Generales del Proyecto
+# ⚙️ Variables de Entorno
 
-- Next.js
-- MongoDB
-- Google Maps API
-- Responsive Design
-- API REST
-- Autenticación Segura
-
----
-
-# 📱 Compatibilidad
-
-✅ Celulares  
-✅ Tablets  
-✅ PC  
-
----
-
-# 📞 Contacto
-
-Para consultas, presupuestos o nuevas funcionalidades, comunicarse mediante los canales correspondientes.
-
+```env
 MONGODB_URI=mongodb+srv://patocorbalan1999:atlas2409@atlasdb.dhwuxbr.mongodb.net/censo_barrial
 
 JWT_SECRET=clavesecreta123
