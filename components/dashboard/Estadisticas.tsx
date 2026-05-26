@@ -396,7 +396,7 @@ export function Estadisticas() {
               </h2>
 
               <p className="text-xs text-muted-foreground">
-                Datos reales desde MongoDB
+                Acumulado relevamientos activos
               </p>
             </div>
 
@@ -456,7 +456,7 @@ export function Estadisticas() {
             </h2>
 
             <p className="text-xs text-muted-foreground">
-              Distribución real
+              Distribución porcentual
             </p>
           </div>
 

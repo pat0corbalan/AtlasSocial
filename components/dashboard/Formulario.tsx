@@ -39,6 +39,7 @@ interface FormState {
   adultos: string
   menores: string
   adultosMayores: string
+  discapacitados: string
   condicionVivienda: string
   observaciones: string
 
@@ -451,14 +452,22 @@ function StepFamilia({
 
       <div>
         <label className={labelClass}>Integrantes del hogar</label>
-        <div className="grid grid-cols-3 gap-3 mt-1">
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-1">
           {[
-            { key: "adultos",        label: "Adultos"       },
-            { key: "menores",        label: "Menores"       },
-            { key: "adultosMayores", label: "Ad. Mayores"   },
+            { key: "adultos",        label: "Adultos" },
+            { key: "menores",        label: "Menores" },
+            { key: "adultosMayores", label: "Ad. Mayores" },
+            { key: "discapacitados", label: "Discapacidad" },
           ].map(({ key, label }) => (
-            <div key={key} className="flex flex-col items-center gap-2 bg-secondary rounded-xl p-3">
-              <span className="text-xs font-semibold text-muted-foreground">{label}</span>
+            <div
+              key={key}
+              className="flex flex-col items-center gap-2 bg-secondary rounded-xl p-3"
+            >
+              <span className="text-xs font-semibold text-muted-foreground">
+                {label}
+              </span>
+
               <div className="flex items-center gap-2">
                 <button
                   type="button"
@@ -466,22 +475,28 @@ function StepFamilia({
                   onClick={() =>
                     setForm((f) => ({
                       ...f,
-                      [key]: String(Math.max(0, Number(f[key as keyof FormState]) - 1)),
+                      [key]: String(
+                        Math.max(0, Number(f[key as keyof FormState]) - 1)
+                      ),
                     }))
                   }
                 >
-                  
+                  -
                 </button>
+
                 <span className="w-6 text-center text-lg font-bold text-foreground tabular-nums">
                   {form[key as keyof FormState]}
                 </span>
+
                 <button
                   type="button"
                   className="w-7 h-7 rounded-full border border-border flex items-center justify-center text-lg font-bold text-foreground hover:bg-accent transition-colors"
                   onClick={() =>
                     setForm((f) => ({
                       ...f,
-                      [key]: String(Number(f[key as keyof FormState]) + 1),
+                      [key]: String(
+                        Number(f[key as keyof FormState]) + 1
+                      ),
                     }))
                   }
                 >
@@ -495,6 +510,7 @@ function StepFamilia({
 
       <div>
         <label className={labelClass}>Necesidades del grupo familiar</label>
+
         <div className="flex flex-wrap gap-2 mt-2">
           {necesidadesOptions.map(({ id, label, Icon }) => (
             <button
@@ -517,12 +533,18 @@ function StepFamilia({
 
       <div>
         <label className={labelClass}>Observaciones</label>
+
         <textarea
           className={cn(inputClass, "resize-none")}
           rows={3}
           placeholder="Situación particular de la familia..."
           value={form.observaciones}
-          onChange={(e) => setForm((f) => ({ ...f, observaciones: e.target.value }))}
+          onChange={(e) =>
+            setForm((f) => ({
+              ...f,
+              observaciones: e.target.value,
+            }))
+          }
         />
       </div>
     </div>
@@ -711,6 +733,7 @@ export function Formulario() {
     adultos: "2",
     menores: "1",
     adultosMayores: "0",
+    discapacitados: "0",
 
     condicionVivienda: "precaria",
     observaciones: "",
@@ -755,6 +778,7 @@ export function Formulario() {
     adultos: "2",
     menores: "1",
     adultosMayores: "0",
+    discapacitados: "0",
 
     condicionVivienda: "precaria",
     observaciones: "",

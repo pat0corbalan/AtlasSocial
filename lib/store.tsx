@@ -6,6 +6,7 @@ export type View =
   | "formulario"
   | "estadisticas"
   | "datos"
+  | "usuarios"
   | "configuracion"
 
 export type Plan = "basico" | "intermedio" | "avanzado"

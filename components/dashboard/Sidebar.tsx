@@ -14,6 +14,7 @@ import {
   X,
   ChevronRight,
   Shield,
+  User2,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -57,6 +58,14 @@ const allNavItems: {
     label: "Gestión de Datos",
     icon: <Database className="w-5 h-5" />,
     description: "Tabla y exportación",
+    roles: ["admin"],
+  },
+
+  {
+    id: "usuarios",
+    label: "Usuarios",
+    icon: <User2 className="w-5 h-5" />,
+    description: "Gestion de Usuarios",
     roles: ["admin"],
   },
 

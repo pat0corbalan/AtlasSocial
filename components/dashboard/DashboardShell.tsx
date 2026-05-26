@@ -10,6 +10,7 @@ import { Formulario } from "./Formulario"
 import { Estadisticas } from "./Estadisticas"
 import { GestionDatos } from "./GestionDatos"
 import { Configuracion } from "./Configuracion"
+import { Usuarios } from "./Usuarios"
 
 import { logout } from "@/lib/logout"
 
@@ -22,6 +23,7 @@ const viewTitles: Record<string, string> = {
   formulario: "Relevamiento de Campo",
   estadisticas: "Panel de Estadísticas",
   datos: "Gestión de Datos",
+  usuarios: "Gestion de Usuarios",
   configuracion: "Configuración del Sistema",
 }
 
@@ -164,6 +166,12 @@ export function DashboardShell() {
             {view === "datos" &&
               user?.role === "admin" && (
                 <GestionDatos />
+              )}
+
+            {/* GESTION DE USUARIOS */}
+            {view === "usuarios" &&
+              user?.role === "admin" && (
+                <Usuarios />
               )}
 
             {/* CONFIGURACION */}
