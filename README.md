@@ -194,6 +194,7 @@ Entre 15 y 30 días aproximadamente, dependiendo de ajustes y funcionalidades ad
 # 📌 Observaciones
 
 El presupuesto puede variar según funcionalidades adicionales o integraciones futuras solicitadas posteriormente.
+--Agregar conexión con el padron en el formulario de relevamiento (MARCAR SI SE VISITÖ O NO)
 
 ---
 
