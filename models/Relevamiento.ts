@@ -16,11 +16,11 @@ const RelevamientoSchema = new Schema(
       trim: true,
     },
 
-    numero: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    // numero: {
+    //   type: String,
+    //   required: true,
+    //   trim: true,
+    // },
 
     piso: {
       type: String,

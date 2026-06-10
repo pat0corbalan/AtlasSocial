@@ -55,10 +55,10 @@ interface FormState {
 const STEPS = [
   { id: 1, label: "Domicilio",      short: "Domicilio",  icon: Home     },
   { id: 2, label: "Ubicación",      short: "Ubic.",      icon: MapPin   },
-  { id: 3, label: "Contacto",       short: "Contacto", icon: Users },
-  { id: 4, label: "Familia",        short: "Familia",    icon: Users    },
-  { id: 5, label: "Infraestructura",short: "Infra.",     icon: Zap      },
-  { id: 6, label: "Intención voto", short: "Voto",       icon: Vote     },
+  // { id: 3, label: "Contacto",       short: "Contacto", icon: Users },
+  { id: 3, label: "Familia",        short: "Familia",    icon: Users    },
+  { id: 4, label: "Infraestructura",short: "Infra.",     icon: Zap      },
+  { id: 5, label: "Intención voto", short: "Voto",       icon: Vote     },
 ]
 
 const intencionVotoOptions = [
@@ -159,182 +159,267 @@ function StepDomicilio({
   setForm: React.Dispatch<React.SetStateAction<FormState>>
 }) {
   return (
-    <div className="space-y-4">
-      <StepHeading
-        icon={<Home className="w-5 h-5" />}
-        title="Datos del Domicilio"
-      />
+    <div className="space-y-6">
 
-      {/* 2 filas x 2 columnas */}
-      <div className="grid grid-cols-2 grid-rows-2 gap-4">
+      {/* ================= DOMICILIO ================= */}
+      <div className="space-y-4">
+        <StepHeading
+          icon={<Home className="w-5 h-5" />}
+          title="Datos del Domicilio"
+        />
 
-        {/* Fila 1 - Columna 1 */}
-        <div>
-          <label className={labelClass}>Barrio</label>
+        <div className="grid grid-cols-2 gap-4">
 
-          <select
-            className={inputClass}
-            value={form.barrio}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                barrio: e.target.value,
-              }))
-            }
-          >
-            <option value="">Seleccionar barrio</option>
-            <option value="Casanova">Casanova</option>
-            <option value="Belgrano">Belgrano</option>
-            <option value="Pueblo Nuevo">Pueblo Nuevo</option>
-            <option value="Centro">Centro</option>
-            <option value="Sur">Sur</option>
-            <option value="Sauce">Sauce</option>
-            <option value="Challua">Challua</option>
-            <option value="Lavalle Norte">Lavalle Norte</option>
-            <option value="Dolores">Dolores</option>
-          </select>
+          {/* Barrio */}
+          <div>
+            <label className={labelClass}>Barrio</label>
+
+            <select
+              className={inputClass}
+              value={form.barrio}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  barrio: e.target.value,
+                }))
+              }
+            >
+              <option value="">Seleccionar barrio</option>
+              <option value="Casanova">Casanova</option>
+              <option value="Belgrano">Belgrano</option>
+              <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+              <option value="Centro">Centro</option>
+              <option value="Sur">Sur</option>
+              <option value="Sauce">Sauce</option>
+              <option value="Challua">Challua</option>
+              <option value="Lavalle Norte">Lavalle Norte</option>
+              <option value="Dolores">Dolores</option>
+            </select>
+          </div>
+
+          {/* Calle */}
+          <div>
+            <label className={labelClass}>Calle / Avenida</label>
+
+            <input
+              className={inputClass}
+              placeholder="Av. San Martín"
+              value={form.calle}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  calle: e.target.value,
+                }))
+              }
+              required
+            />
+          </div>
+
+          {/* Localidad */}
+          <div>
+            <label className={labelClass}>Localidad</label>
+
+            <input
+              className={inputClass}
+              placeholder="Santiago del Estero"
+              value={form.localidad}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  localidad: e.target.value,
+                }))
+              }
+            />
+          </div>
+
+          {/* Condición vivienda */}
+          <div>
+            <label className={labelClass}>Condición de la vivienda</label>
+
+            <select
+              className={inputClass}
+              value={form.condicionVivienda}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  condicionVivienda: e.target.value,
+                }))
+              }
+            >
+              <option value="solida">Sólida (material)</option>
+              <option value="precaria">Precaria (madera / chapa)</option>
+              <option value="mixta">Mixta</option>
+              <option value="container">Container / Villa</option>
+            </select>
+          </div>
+
         </div>
-
-        {/* Fila 1 - Columna 2 */}
-        <div>
-          <label className={labelClass}>Calle / Avenida</label>
-
-          <input
-            className={inputClass}
-            placeholder="Av. San Martín"
-            value={form.calle}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                calle: e.target.value,
-              }))
-            }
-            required
-          />
-        </div>
-
-        {/* Fila 2 - Columna 1 */}
-        <div>
-          <label className={labelClass}>Localidad</label>
-
-          <input
-            className={inputClass}
-            placeholder="Santiago del Estero"
-            value={form.localidad}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                localidad: e.target.value,
-              }))
-            }
-          />
-        </div>
-
-        {/* Fila 2 - Columna 2 */}
-        <div>
-          <label className={labelClass}>Condición de la vivienda</label>
-
-          <select
-            className={inputClass}
-            value={form.condicionVivienda}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                condicionVivienda: e.target.value,
-              }))
-            }
-          >
-            <option value="solida">Sólida (material)</option>
-            <option value="precaria">Precaria (madera / chapa)</option>
-            <option value="mixta">Mixta</option>
-            <option value="container">Container / Villa</option>
-          </select>
-        </div>
-
       </div>
+
+      {/* ================= CONTACTO ================= */}
+      <div className="space-y-4">
+        <StepHeading
+          icon={<Users className="w-5 h-5" />}
+          title="Datos de Contacto"
+        />
+
+        <div className="grid grid-cols-2 gap-4">
+
+          {/* Nombre */}
+          <div>
+            <label className={labelClass}>Nombre y apellido</label>
+
+            <input
+              className={inputClass}
+              placeholder="Juan Pérez"
+              value={form.nombreContacto}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  nombreContacto: e.target.value,
+                }))
+              }
+            />
+          </div>
+
+          {/* Teléfono */}
+          <div>
+            <label className={labelClass}>Teléfono</label>
+
+            <input
+              className={inputClass}
+              placeholder="3851234567"
+              value={form.telefono}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  telefono: e.target.value,
+                }))
+              }
+            />
+          </div>
+
+          {/* WhatsApp */}
+          {/* <div>
+            <label className={labelClass}>WhatsApp</label>
+
+            <input
+              className={inputClass}
+              placeholder="3851234567"
+              value={form.whatsapp}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  whatsapp: e.target.value,
+                }))
+              }
+            />
+          </div> */}
+
+          {/* Email */}
+          {/* <div>
+            <label className={labelClass}>Email</label>
+
+            <input
+              type="email"
+              className={inputClass}
+              placeholder="correo@email.com"
+              value={form.email}
+              onChange={(e) =>
+                setForm((f) => ({
+                  ...f,
+                  email: e.target.value,
+                }))
+              }
+            />
+          </div> */}
+
+        </div>
+      </div>
+
     </div>
   )
 }
 
-function StepContacto({
-  form,
-  setForm,
-}: {
-  form: FormState
-  setForm: React.Dispatch<React.SetStateAction<FormState>>
-}) {
-  return (
-    <div className="space-y-4">
-      <StepHeading
-        icon={<Users className="w-5 h-5" />}
-        title="Datos de Contacto"
-      />
+// function StepContacto({
+//   form,
+//   setForm,
+// }: {
+//   form: FormState
+//   setForm: React.Dispatch<React.SetStateAction<FormState>>
+// }) {
+//   return (
+//     <div className="space-y-4">
+//       <StepHeading
+//         icon={<Users className="w-5 h-5" />}
+//         title="Datos de Contacto"
+//       />
 
-      <div>
-        <label className={labelClass}>Nombre y apellido</label>
-        <input
-          className={inputClass}
-          placeholder="Juan Pérez"
-          value={form.nombreContacto}
-          onChange={(e) =>
-            setForm((f) => ({
-              ...f,
-              nombreContacto: e.target.value,
-            }))
-          }
-        />
-      </div>
+//       <div>
+//         <label className={labelClass}>Nombre y apellido</label>
+//         <input
+//           className={inputClass}
+//           placeholder="Juan Pérez"
+//           value={form.nombreContacto}
+//           onChange={(e) =>
+//             setForm((f) => ({
+//               ...f,
+//               nombreContacto: e.target.value,
+//             }))
+//           }
+//         />
+//       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className={labelClass}>Teléfono</label>
-          <input
-            className={inputClass}
-            placeholder="3851234567"
-            value={form.telefono}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                telefono: e.target.value,
-              }))
-            }
-          />
-        </div>
+//       <div className="grid grid-cols-2 gap-3">
+//         <div>
+//           <label className={labelClass}>Teléfono</label>
+//           <input
+//             className={inputClass}
+//             placeholder="3851234567"
+//             value={form.telefono}
+//             onChange={(e) =>
+//               setForm((f) => ({
+//                 ...f,
+//                 telefono: e.target.value,
+//               }))
+//             }
+//           />
+//         </div>
 
-        <div>
-          <label className={labelClass}>WhatsApp</label>
-          <input
-            className={inputClass}
-            placeholder="3851234567"
-            value={form.whatsapp}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                whatsapp: e.target.value,
-              }))
-            }
-          />
-        </div>
-      </div>
+//         <div>
+//           <label className={labelClass}>WhatsApp</label>
+//           <input
+//             className={inputClass}
+//             placeholder="3851234567"
+//             value={form.whatsapp}
+//             onChange={(e) =>
+//               setForm((f) => ({
+//                 ...f,
+//                 whatsapp: e.target.value,
+//               }))
+//             }
+//           />
+//         </div>
+//       </div>
 
-      <div>
-        <label className={labelClass}>Email</label>
-        <input
-          type="email"
-          className={inputClass}
-          placeholder="correo@email.com"
-          value={form.email}
-          onChange={(e) =>
-            setForm((f) => ({
-              ...f,
-              email: e.target.value,
-            }))
-          }
-        />
-      </div>
-    </div>
-  )
-}
+//       <div>
+//         <label className={labelClass}>Email</label>
+//         <input
+//           type="email"
+//           className={inputClass}
+//           placeholder="correo@email.com"
+//           value={form.email}
+//           onChange={(e) =>
+//             setForm((f) => ({
+//               ...f,
+//               email: e.target.value,
+//             }))
+//           }
+//         />
+//       </div>
+//     </div>
+//   )
+// }
 
 function StepGeolocalizacion({
   form,
@@ -872,13 +957,13 @@ export function Formulario() {
         {step === 2 && (
           <StepGeolocalizacion form={form} setForm={setForm} locked={isGeoLocked} />
         )}
-        {step === 3 && (
+        {/* {step === 3 && (
           <StepContacto
             form={form}
             setForm={setForm}
           />
-        )}
-        {step === 4 && (
+        )} */}
+        {step === 3 && (
           <StepFamilia
             form={form}
             setForm={setForm}
@@ -886,10 +971,10 @@ export function Formulario() {
             toggleNecesidad={toggleNecesidad}
           />
         )}
-        {step === 5 && (
+        {step === 4 && (
           <StepInfraestructura infra={infra} toggleInfra={toggleInfra} />
         )}
-        {step === 6 && (
+        {step === 5 && (
           <StepVoto voto={voto} setVoto={setVoto} locked={isVotoLocked} />
         )}
       </div>

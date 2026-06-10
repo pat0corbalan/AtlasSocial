@@ -247,17 +247,19 @@ export function Estadisticas() {
   })
 
   const votoLabels: Record<string, string> = {
-    oficialismo: "Oficialismo",
 
-    oposicion_moderada:
-      "Oposición Mod.",
+    pancho: "Pancho",
 
-    oposicion_dura:
-      "Oposición Dura",
+    sole: "Sole",
+
+    tala: "Tala",
 
     indeciso: "Indeciso",
 
-    no_vota: "No Vota",
+    hugul: "Hugul",
+
+    otro: "Otro",
+
   }
 
   const votoColors: Record<string, string> =
