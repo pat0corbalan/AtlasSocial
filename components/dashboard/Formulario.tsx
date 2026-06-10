@@ -265,97 +265,74 @@ function StepContacto({
 }) {
   return (
     <div className="space-y-4">
-  <StepHeading
-    icon={<Home className="w-5 h-5" />}
-    title="Datos del Domicilio"
-  />
-
-  <div className="grid grid-cols-2 gap-4">
-    
-    {/* Barrio */}
-    <div>
-      <label className={labelClass}>Barrio</label>
-
-      <select
-        className={inputClass}
-        value={form.barrio}
-        onChange={(e) =>
-          setForm((f) => ({
-            ...f,
-            barrio: e.target.value,
-          }))
-        }
-      >
-        <option value="">Seleccionar barrio</option>
-        <option value="Casanova">Casanova</option>
-        <option value="Belgrano">Belgrano</option>
-        <option value="Pueblo Nuevo">Pueblo Nuevo</option>
-        <option value="Centro">Centro</option>
-        <option value="Sur">Sur</option>
-        <option value="Sauce">Sauce</option>
-        <option value="Challua">Challua</option>
-        <option value="Lavalle Norte">Lavalle Norte</option>
-        <option value="Dolores">Dolores</option>
-      </select>
-    </div>
-
-    {/* Calle */}
-    <div>
-      <label className={labelClass}>Calle / Avenida</label>
-
-      <input
-        className={inputClass}
-        placeholder="Av. San Martín"
-        value={form.calle}
-        onChange={(e) =>
-          setForm((f) => ({
-            ...f,
-            calle: e.target.value,
-          }))
-        }
-        required
+      <StepHeading
+        icon={<Users className="w-5 h-5" />}
+        title="Datos de Contacto"
       />
+
+      <div>
+        <label className={labelClass}>Nombre y apellido</label>
+        <input
+          className={inputClass}
+          placeholder="Juan Pérez"
+          value={form.nombreContacto}
+          onChange={(e) =>
+            setForm((f) => ({
+              ...f,
+              nombreContacto: e.target.value,
+            }))
+          }
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className={labelClass}>Teléfono</label>
+          <input
+            className={inputClass}
+            placeholder="3851234567"
+            value={form.telefono}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                telefono: e.target.value,
+              }))
+            }
+          />
+        </div>
+
+        <div>
+          <label className={labelClass}>WhatsApp</label>
+          <input
+            className={inputClass}
+            placeholder="3851234567"
+            value={form.whatsapp}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                whatsapp: e.target.value,
+              }))
+            }
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className={labelClass}>Email</label>
+        <input
+          type="email"
+          className={inputClass}
+          placeholder="correo@email.com"
+          value={form.email}
+          onChange={(e) =>
+            setForm((f) => ({
+              ...f,
+              email: e.target.value,
+            }))
+          }
+        />
+      </div>
     </div>
-
-    {/* Localidad */}
-    <div>
-      <label className={labelClass}>Localidad</label>
-
-      <input
-        className={inputClass}
-        placeholder="Santiago del Estero"
-        value={form.localidad}
-        onChange={(e) =>
-          setForm((f) => ({
-            ...f,
-            localidad: e.target.value,
-          }))
-        }
-      />
-    </div>
-
-    {/* Condición vivienda */}
-    <div>
-      <label className={labelClass}>Condición de la vivienda</label>
-
-      <select
-        className={inputClass}
-        value={form.condicionVivienda}
-        onChange={(e) =>
-          setForm((f) => ({
-            ...f,
-            condicionVivienda: e.target.value,
-          }))
-        }
-      >
-        <option value="solida">Sólida (material)</option>
-        <option value="precaria">Precaria (madera / chapa)</option>
-        <option value="mixta">Mixta</option>
-        <option value="container">Container / Villa</option>
-      </select>
-    </div>
-  </div>
-</div>
   )
 }
 
