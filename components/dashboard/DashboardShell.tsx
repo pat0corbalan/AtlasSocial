@@ -9,7 +9,7 @@ import { Sidebar, SidebarToggle } from "./Sidebar"
 import { Formulario } from "./Formulario"
 import { Estadisticas } from "./Estadisticas"
 import { GestionDatos } from "./GestionDatos"
-import { Configuracion } from "./Configuracion"
+// import { Configuracion } from "./Configuracion"
 import { Usuarios } from "./Usuarios"
 
 import { logout } from "@/lib/logout"
@@ -117,12 +117,12 @@ export function DashboardShell() {
             </button>
 
             {/* Settings */}
-            <button
+            {/* <button
               onClick={() => setView("configuracion")}
               className="p-2 rounded-lg hover:bg-accent transition-colors text-muted-foreground"
             >
               <Settings className="w-4 h-4" />
-            </button>
+            </button> */}
 
             {/* User */}
             <div className="flex items-center gap-3 ml-2">
@@ -174,11 +174,11 @@ export function DashboardShell() {
                 <Usuarios />
               )}
 
-            {/* CONFIGURACION */}
+            {/* CONFIGURACION
             {view === "configuracion" && 
               user?.role === "admin" && (
               <Configuracion />
-            )}
+            )} */}
           </div>
         </main>
       </div>

@@ -69,41 +69,41 @@ const allNavItems: {
     roles: ["admin"],
   },
 
-  {
-    id: "configuracion",
-    label: "Configuración",
-    icon: <Settings className="w-5 h-5" />,
-    description: "Planes y ajustes",
-    // roles: ["admin", "encuestador"], SI SE REQUIERE MOSTRAR AL ENCUESTADOR
-    roles: ["admin"],
-  },
+  // {
+  //   id: "configuracion",
+  //   label: "Configuración",
+  //   icon: <Settings className="w-5 h-5" />,
+  //   description: "Planes y ajustes",
+  //   // roles: ["admin", "encuestador"], SI SE REQUIERE MOSTRAR AL ENCUESTADOR
+  //   roles: ["admin"],
+  // },
 ]
 
 
 
-const planLabels: Record<
-  string,
-  {
-    label: string
-    color: string
-  }
-> = {
-  basico: {
-    label: "Plan Básico",
-    color:
-      "bg-muted-foreground/30 text-sidebar-foreground",
-  },
+// const planLabels: Record<
+//   string,
+//   {
+//     label: string
+//     color: string
+//   }
+// > = {
+//   basico: {
+//     label: "Plan Básico",
+//     color:
+//       "bg-muted-foreground/30 text-sidebar-foreground",
+//   },
 
-  intermedio: {
-    label: "Plan Intermedio",
-    color: "bg-primary/20 text-primary",
-  },
+//   intermedio: {
+//     label: "Plan Intermedio",
+//     color: "bg-primary/20 text-primary",
+//   },
 
-  avanzado: {
-    label: "Plan Avanzado",
-    color: "bg-success/20 text-green-400",
-  },
-}
+//   avanzado: {
+//     label: "Plan Avanzado",
+//     color: "bg-success/20 text-green-400",
+//   },
+// }
 
 
 
@@ -119,7 +119,7 @@ export function Sidebar() {
   const [user, setUser] =
     useState<User | null>(null)
 
-  const planInfo = planLabels[plan]
+  // const planInfo = planLabels[plan]
 
 
 
@@ -208,7 +208,7 @@ export function Sidebar() {
         </div>
 
         {/* Plan badge */}
-        <div className="px-4 py-3 border-b border-sidebar-border">
+        {/* <div className="px-4 py-3 border-b border-sidebar-border">
           <div
             className={cn(
               "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold",
@@ -219,7 +219,7 @@ export function Sidebar() {
 
             {planInfo.label}
           </div>
-        </div>
+        </div> */}
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">

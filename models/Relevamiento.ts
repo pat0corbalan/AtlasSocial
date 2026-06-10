@@ -87,11 +87,11 @@ const RelevamientoSchema = new Schema(
     voto: {
       type: String,
       enum: [
-        "oficialismo",
-        "oposicion_moderada",
-        "oposicion_dura",
-        "indeciso",
-        "no_vota",
+        "pancho",
+        "sole",
+        "tala",
+        "hugul",
+        "otro",
       ],
       default: "indeciso",
     },
@@ -117,12 +117,12 @@ const RelevamientoSchema = new Schema(
         enum: [
           "agua",
           "cloacas",
-          "gas",
-          "pavimento",
+          // "gas",
+          "camino", //antes se llamaba pavimento
           "alumbrado",
-          "seguridad",
-          "espacio",
-          "sala",
+          // "seguridad",
+          // "espacio",
+          "salud", //Antes se llamaba "sala"
           "basura",
         ],
       },

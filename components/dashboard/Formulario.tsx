@@ -62,11 +62,12 @@ const STEPS = [
 ]
 
 const intencionVotoOptions = [
-  { value: "oficialismo",       label: "Oficialismo",     color: "bg-blue-600 text-white border-blue-600"       },
-  { value: "oposicion_moderada",label: "Oposición Mod.",  color: "bg-slate-600 text-white border-slate-600"     },
-  { value: "oposicion_dura",    label: "Oposición Dura",  color: "bg-red-600 text-white border-red-600"         },
+  { value: "pancho",       label: "Pancho",     color: "bg-blue-600 text-white border-blue-600"       },
+  { value: "sole",label: "Sole",  color: "bg-slate-600 text-white border-slate-600"     },
+  { value: "tala",    label: "PJ: TALA",  color: "bg-red-600 text-white border-red-600"         },
   { value: "indeciso",          label: "Indeciso",        color: "bg-amber-500 text-white border-amber-500"     },
-  { value: "no_vota",           label: "No Vota",         color: "bg-gray-400 text-white border-gray-400"       },
+  { value: "hugul",           label: "Hugul",         color: "bg-gray-400 text-white border-gray-400"       },
+  { value: "otro",           label: "Otro",         color: "bg-black-400 text-white border-black-400"       },
 ]
 
 const necesidadesOptions = [
@@ -79,13 +80,13 @@ const necesidadesOptions = [
 
 const infraestructuraItems = [
   { id: "agua",      label: "Agua potable", Icon: Droplets },
-  { id: "cloacas",   label: "Cloacas",        Icon: Trash2   },
-  { id: "gas",       label: "Gas natural",    Icon: Zap      },
-  { id: "pavimento", label: "Pavimento",      Icon: MapPin   },
+  // { id: "cloacas",   label: "Cloacas",        Icon: Trash2   },
+  // { id: "gas",       label: "Gas natural",    Icon: Zap      },
+  { id: "camino", label: "Camino",      Icon: MapPin   },
   { id: "alumbrado", label: "Alumbrado",      Icon: Zap      },
-  { id: "seguridad", label: "Seguridad",              Icon: Shield     },
-  { id: "espacio",   label: "Espacio verde",          Icon: Trees      },
-  { id: "sala",      label: "Sala de aux",            Icon: Cross      },
+  // { id: "seguridad", label: "Seguridad",              Icon: Shield     },
+  // { id: "espacio",   label: "Espacio verde",          Icon: Trees      },
+  { id: "salud",      label: "Salud",            Icon: Cross      },
   { id: "basura",    label: "Recolección de basura",  Icon: Trash      },
 ]
 
@@ -159,38 +160,27 @@ function StepDomicilio({
 }) {
   return (
     <div className="space-y-4">
-      <StepHeading icon={<Home className="w-5 h-5" />} title="Datos del Domicilio" />
+      <StepHeading
+        icon={<Home className="w-5 h-5" />}
+        title="Datos del Domicilio"
+      />
 
-      <div className="grid grid-cols-3 gap-3">
-        <div className="col-span-2">
-          <label className={labelClass}>Calle / Avenida</label>
-          <input
-            className={inputClass}
-            placeholder="Av. San Martín"
-            value={form.calle}
-            onChange={(e) => setForm((f) => ({ ...f, calle: e.target.value }))}
-            required
-          />
-        </div>
+      {/* 2 filas x 2 columnas */}
+      <div className="grid grid-cols-2 grid-rows-2 gap-4">
+
+        {/* Fila 1 - Columna 1 */}
         <div>
-          <label className={labelClass}>Número</label>
-          <input
-            className={inputClass}
-            placeholder="1234"
-            value={form.numero}
-            onChange={(e) => setForm((f) => ({ ...f, numero: e.target.value }))}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-         <div>
           <label className={labelClass}>Barrio</label>
+
           <select
             className={inputClass}
             value={form.barrio}
-            onChange={(e) => setForm((f) => ({ ...f, barrio: e.target.value }))}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                barrio: e.target.value,
+              }))
+            }
           >
             <option value="">Seleccionar barrio</option>
             <option value="Casanova">Casanova</option>
@@ -204,29 +194,63 @@ function StepDomicilio({
             <option value="Dolores">Dolores</option>
           </select>
         </div>
+
+        {/* Fila 1 - Columna 2 */}
+        <div>
+          <label className={labelClass}>Calle / Avenida</label>
+
+          <input
+            className={inputClass}
+            placeholder="Av. San Martín"
+            value={form.calle}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                calle: e.target.value,
+              }))
+            }
+            required
+          />
+        </div>
+
+        {/* Fila 2 - Columna 1 */}
         <div>
           <label className={labelClass}>Localidad</label>
+
           <input
             className={inputClass}
             placeholder="Santiago del Estero"
             value={form.localidad}
-            onChange={(e) => setForm((f) => ({ ...f, localidad: e.target.value }))}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                localidad: e.target.value,
+              }))
+            }
           />
         </div>
-      </div>
 
-      <div>
-        <label className={labelClass}>Condición de la vivienda</label>
-        <select
-          className={inputClass}
-          value={form.condicionVivienda}
-          onChange={(e) => setForm((f) => ({ ...f, condicionVivienda: e.target.value }))}
-        >
-          <option value="solida">Sólida (material)</option>
-          <option value="precaria">Precaria (madera / chapa)</option>
-          <option value="mixta">Mixta</option>
-          <option value="container">Container / Villa</option>
-        </select>
+        {/* Fila 2 - Columna 2 */}
+        <div>
+          <label className={labelClass}>Condición de la vivienda</label>
+
+          <select
+            className={inputClass}
+            value={form.condicionVivienda}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                condicionVivienda: e.target.value,
+              }))
+            }
+          >
+            <option value="solida">Sólida (material)</option>
+            <option value="precaria">Precaria (madera / chapa)</option>
+            <option value="mixta">Mixta</option>
+            <option value="container">Container / Villa</option>
+          </select>
+        </div>
+
       </div>
     </div>
   )
@@ -241,74 +265,97 @@ function StepContacto({
 }) {
   return (
     <div className="space-y-4">
-      <StepHeading
-        icon={<Users className="w-5 h-5" />}
-        title="Datos de Contacto"
-      />
+  <StepHeading
+    icon={<Home className="w-5 h-5" />}
+    title="Datos del Domicilio"
+  />
 
-      <div>
-        <label className={labelClass}>Nombre y apellido</label>
-        <input
-          className={inputClass}
-          placeholder="Juan Pérez"
-          value={form.nombreContacto}
-          onChange={(e) =>
-            setForm((f) => ({
-              ...f,
-              nombreContacto: e.target.value,
-            }))
-          }
-        />
-      </div>
+  <div className="grid grid-cols-2 gap-4">
+    
+    {/* Barrio */}
+    <div>
+      <label className={labelClass}>Barrio</label>
 
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className={labelClass}>Teléfono</label>
-          <input
-            className={inputClass}
-            placeholder="3851234567"
-            value={form.telefono}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                telefono: e.target.value,
-              }))
-            }
-          />
-        </div>
-
-        <div>
-          <label className={labelClass}>WhatsApp</label>
-          <input
-            className={inputClass}
-            placeholder="3851234567"
-            value={form.whatsapp}
-            onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                whatsapp: e.target.value,
-              }))
-            }
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className={labelClass}>Email</label>
-        <input
-          type="email"
-          className={inputClass}
-          placeholder="correo@email.com"
-          value={form.email}
-          onChange={(e) =>
-            setForm((f) => ({
-              ...f,
-              email: e.target.value,
-            }))
-          }
-        />
-      </div>
+      <select
+        className={inputClass}
+        value={form.barrio}
+        onChange={(e) =>
+          setForm((f) => ({
+            ...f,
+            barrio: e.target.value,
+          }))
+        }
+      >
+        <option value="">Seleccionar barrio</option>
+        <option value="Casanova">Casanova</option>
+        <option value="Belgrano">Belgrano</option>
+        <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+        <option value="Centro">Centro</option>
+        <option value="Sur">Sur</option>
+        <option value="Sauce">Sauce</option>
+        <option value="Challua">Challua</option>
+        <option value="Lavalle Norte">Lavalle Norte</option>
+        <option value="Dolores">Dolores</option>
+      </select>
     </div>
+
+    {/* Calle */}
+    <div>
+      <label className={labelClass}>Calle / Avenida</label>
+
+      <input
+        className={inputClass}
+        placeholder="Av. San Martín"
+        value={form.calle}
+        onChange={(e) =>
+          setForm((f) => ({
+            ...f,
+            calle: e.target.value,
+          }))
+        }
+        required
+      />
+    </div>
+
+    {/* Localidad */}
+    <div>
+      <label className={labelClass}>Localidad</label>
+
+      <input
+        className={inputClass}
+        placeholder="Santiago del Estero"
+        value={form.localidad}
+        onChange={(e) =>
+          setForm((f) => ({
+            ...f,
+            localidad: e.target.value,
+          }))
+        }
+      />
+    </div>
+
+    {/* Condición vivienda */}
+    <div>
+      <label className={labelClass}>Condición de la vivienda</label>
+
+      <select
+        className={inputClass}
+        value={form.condicionVivienda}
+        onChange={(e) =>
+          setForm((f) => ({
+            ...f,
+            condicionVivienda: e.target.value,
+          }))
+        }
+      >
+        <option value="solida">Sólida (material)</option>
+        <option value="precaria">Precaria (madera / chapa)</option>
+        <option value="mixta">Mixta</option>
+        <option value="container">Container / Villa</option>
+      </select>
+    </div>
+  </div>
+</div>
   )
 }
 

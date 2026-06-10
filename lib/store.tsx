@@ -7,7 +7,7 @@ export type View =
   | "estadisticas"
   | "datos"
   | "usuarios"
-  | "configuracion"
+  // | "configuracion"
 
 export type Plan = "basico" | "intermedio" | "avanzado"
 
