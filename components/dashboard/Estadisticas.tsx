@@ -247,34 +247,22 @@ export function Estadisticas() {
   })
 
   const votoLabels: Record<string, string> = {
+  pancho: "Pancho",
+  sole: "Sole",
+  tala: "Tala",
+  indeciso: "Indeciso",
+  hugul: "Hugul",
+  otro: "Otro",
+}
 
-    pancho: "Pancho",
-
-    sole: "Sole",
-
-    tala: "Tala",
-
-    indeciso: "Indeciso",
-
-    hugul: "Hugul",
-
-    otro: "Otro",
-
-  }
-
-  const votoColors: Record<string, string> =
-    {
-      oficialismo: "#3b82f6",
-
-      oposicion_moderada:
-        "#64748b",
-
-      oposicion_dura: "#ef4444",
-
-      indeciso: "#f59e0b",
-
-      no_vota: "#94a3b8",
-    }
+const votoColors: Record<string, string> = {
+  pancho: "#3b82f6",   // azul
+  sole: "#22c55e",     // rojo
+  tala: "#ef4444",     // verde
+  indeciso: "#f59e0b", // amarillo
+  hugul: "#8b5cf6",    // violeta
+  otro: "#64748b",     // gris
+}
 
   const votoData = Object.entries(votoCount).map(
     ([key, value]) => ({
