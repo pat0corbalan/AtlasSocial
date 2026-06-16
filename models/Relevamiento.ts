@@ -118,7 +118,7 @@ const RelevamientoSchema = new Schema(
           "agua",
           "cloacas",
           // "gas",
-          "camino", //antes se llamaba pavimento
+          "calle", //antes se llamaba pavimento
           "alumbrado",
           // "seguridad",
           // "espacio",

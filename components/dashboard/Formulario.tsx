@@ -65,8 +65,8 @@ const intencionVotoOptions = [
   { value: "pancho",       label: "Pancho",     color: "bg-blue-600 text-white border-blue-600"       },
   { value: "sole",label: "Sole",  color: "bg-slate-600 text-white border-slate-600"     },
   { value: "tala",    label: "PJ: TALA",  color: "bg-red-600 text-white border-red-600"         },
-  { value: "indeciso",          label: "Indeciso",        color: "bg-amber-500 text-white border-amber-500"     },
   { value: "hugul",           label: "Hugul",         color: "bg-gray-400 text-white border-gray-400"       },
+  { value: "indeciso",          label: "Indeciso",        color: "bg-amber-500 text-white border-amber-500"     },
   { value: "otro",           label: "Otro",         color: "bg-black-400 text-white border-black-400"       },
 ]
 
@@ -82,7 +82,7 @@ const infraestructuraItems = [
   { id: "agua",      label: "Agua potable", Icon: Droplets },
   // { id: "cloacas",   label: "Cloacas",        Icon: Trash2   },
   // { id: "gas",       label: "Gas natural",    Icon: Zap      },
-  { id: "camino", label: "Camino",      Icon: MapPin   },
+  { id: "calle", label: "Calle",      Icon: MapPin   },
   { id: "alumbrado", label: "Alumbrado",      Icon: Zap      },
   // { id: "seguridad", label: "Seguridad",              Icon: Shield     },
   // { id: "espacio",   label: "Espacio verde",          Icon: Trees      },
@@ -185,15 +185,15 @@ function StepDomicilio({
               }
             >
               <option value="">Seleccionar barrio</option>
-              <option value="Casanova">Casanova</option>
-              <option value="Belgrano">Belgrano</option>
-              <option value="Pueblo Nuevo">Pueblo Nuevo</option>
-              <option value="Centro">Centro</option>
-              <option value="Sur">Sur</option>
-              <option value="Sauce">Sauce</option>
               <option value="Challua">Challua</option>
-              <option value="Lavalle Norte">Lavalle Norte</option>
-              <option value="Dolores">Dolores</option>
+              <option value="Calle bs as y 8 de abril">Calle bs as y 8 de abril</option>
+              <option value="Norte">Norte</option>
+              <option value="Sauce">Sauce</option>
+              <option value="Lourdes y Belgrano">Lourdes y Belgrano</option>
+              <option value="Casanova">Casanova</option>
+              <option value="Sur">Sur</option>
+              <option value="Pueblo nuevo">Pueblo nuevo</option>
+              <option value="Centro">Centro</option>
             </select>
           </div>
 
