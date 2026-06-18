@@ -91,6 +91,7 @@ const RelevamientoSchema = new Schema(
         "sole",
         "tala",
         "hugul",
+        "indeciso",
         "otro",
       ],
       default: "indeciso",
@@ -127,6 +128,12 @@ const RelevamientoSchema = new Schema(
         ],
       },
     ],
+
+    electorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Elector",
+      default: null // Opcional, por si hay relevamientos espontáneos sin padrón
+    }
   },
   {
     timestamps: true,

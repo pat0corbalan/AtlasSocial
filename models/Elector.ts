@@ -1,59 +1,175 @@
-import mongoose, { Schema, models, model } from "mongoose"
+import mongoose, {
+  Schema,
+  models,
+  model,
+  Model,
+  Document
+} from "mongoose"
 
-// 1. Interfaz que define la estructura de los datos del Elector
 export interface IElector {
-  distrito: string;
-  seccion: string;
-  circuito: string;
-  mesa: string;
-  nOrden: number;
-  apellidoNombre: string;
-  domicilio: string;
+  distrito: string
+  seccion: string
+  circuito: string
+  mesa: string
+  nOrden: number
+
+  apellidoNombre: string
+  domicilio: string
+
+  // NUEVOS CAMPOS
+  calle?: string
+  barrio?: string
+
+  geolocalizacion?: {
+    type: "Point"
+    coordinates: [number, number]
+  }
+
+  visitado?: boolean
+
   documento: {
-    nro: number;
-    tipo: string;
-  };
-  anioNacimiento: number;
-  voto: boolean;
-  procesadoEn?: Date;
+    nro: number
+    tipo: string
+  }
+
+  anioNacimiento: number
+  voto: boolean
+  procesadoEn?: Date
 }
 
-// 2. Interfaz que extiende de Document para el uso dentro de Mongoose
-export interface IElectorDocument extends IElector, Document {}
+export interface IElectorDocument
+  extends IElector,
+    Document {}
 
-// 3. Definición del Esquema
-const ElectorSchema: Schema<IElectorDocument> = new Schema(
+const ElectorSchema: Schema<IElectorDocument> =
+  new Schema(
+    {
+      distrito: {
+        type: String,
+        required: true,
+        default:
+          "DISTRITO 22 - SANTIAGO DEL ESTERO"
+      },
+
+      seccion: {
+        type: String,
+        required: true
+      },
+
+      circuito: {
+        type: String,
+        required: true
+      },
+
+      mesa: {
+        type: String,
+        required: true
+      },
+
+      nOrden: {
+        type: Number,
+        required: true
+      },
+
+      apellidoNombre: {
+        type: String,
+        required: true,
+        uppercase: true,
+        trim: true
+      },
+
+      domicilio: {
+        type: String,
+        trim: true
+      },
+
+      // ==================
+      // NUEVOS CAMPOS
+      // ==================
+
+      calle: {
+        type: String,
+        trim: true,
+        uppercase: true
+      },
+
+      barrio: {
+        type: String,
+        trim: true,
+        uppercase: true
+      },
+
+      geolocalizacion: {
+        type: {
+          type: String,
+          enum: ["Point"],
+          default: "Point"
+        },
+
+        coordinates: {
+          type: [Number]
+        }
+      },
+
+      visitado: {
+        type: Boolean,
+        default: false
+      },
+
+      // ==================
+
+      documento: {
+        nro: {
+          type: Number,
+          required: true
+        },
+
+        tipo: {
+          type: String,
+          required: true
+        }
+      },
+
+      anioNacimiento: {
+        type: Number,
+        required: true
+      },
+
+      voto: {
+        type: Boolean,
+        default: false
+      },
+
+      procesadoEn: {
+        type: Date,
+        default: Date.now
+      }
+    },
+    {
+      versionKey: false
+    }
+  )
+
+// Índice único
+ElectorSchema.index(
   {
-    distrito: { 
-      type: String, 
-      required: true, 
-      default: "DISTRITO 22 - SANTIAGO DEL ESTERO" 
-    },
-    seccion: { type: String, required: true },
-    circuito: { type: String, required: true },
-    mesa: { type: String, required: true },
-    nOrden: { type: Number, required: true },
-    apellidoNombre: { type: String, required: true, uppercase: true, trim: true },
-    domicilio: { type: String, trim: true },
-    documento: {
-      nro: { type: Number, required: true },
-      tipo: { type: String, required: true } // Ejemplo: 'DNI-EA', 'DNI-EB', 'L'
-    },
-    anioNacimiento: { type: Number, required: true },
-    voto: { type: Boolean, default: false },
-    procesadoEn: { type: Date, default: Date.now }
+    distrito: 1,
+    mesa: 1,
+    nOrden: 1
   },
-  {
-    // Opcional: Desactiva el flag __v si no lo necesitas
-    versionKey: false 
-  }
-);
+  { unique: true }
+)
 
-// 4. Índices para optimizar búsquedas y evitar registros duplicados por mesa
-ElectorSchema.index({ distrito: 1, mesa: 1, nOrden: 1 }, { unique: true });
+// Índice geoespacial
+ElectorSchema.index({
+  geolocalizacion: "2dsphere"
+})
 
-// 5. Exportación del Modelo controlando la re-compilación en Next.js
-const Elector: Model<IElectorDocument> = 
-  mongoose.models.Elector || mongoose.model<IElectorDocument>('Elector', ElectorSchema);
+const Elector: Model<IElectorDocument> =
+  models.Elector ||
+  model<IElectorDocument>(
+    "Elector",
+    ElectorSchema
+  )
 
-export default Elector;
+export default Elector

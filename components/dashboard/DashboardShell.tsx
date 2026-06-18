@@ -8,7 +8,7 @@ import { Sidebar, SidebarToggle } from "./Sidebar"
 
 import { Formulario } from "./Formulario"
 import { Estadisticas } from "./Estadisticas"
-import { GestionDatos } from "./GestionDatos"
+import { GestionDatos } from "./gestion-datos/page"
 // import { Configuracion } from "./Configuracion"
 import { Usuarios } from "./Usuarios"
 
