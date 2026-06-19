@@ -71,26 +71,23 @@ export function PadronView({
       setCalle(electorExt.calle || electorExt.domicilio || "")
       setBarrio(electorExt.barrio || "")
 
-      // 2. Extracción ultra-segura de Latitud/Longitud probando múltiples estructuras posibles del documento
+      // 2. Extracción ultra-segura adaptada a tu modelo de Mongoose [lng, lat]
       let encontradaLat = ""
       let encontradaLng = ""
 
-      if (electorExt.lat && electorExt.lng) {
-        // Estructura directa en la raíz
+      if (electorExt.geolocalizacion?.coordinates && Array.isArray(electorExt.geolocalizacion.coordinates) && electorExt.geolocalizacion.coordinates.length === 2) {
+        // Estructura oficial GeoJSON: [longitud, latitud]
+        encontradaLng = String(electorExt.geolocalizacion.coordinates[0])
+        encontradaLat = String(electorExt.geolocalizacion.coordinates[1])
+      } else if (electorExt.geolocalizacion?.lat && electorExt.geolocalizacion?.lng) {
+        encontradaLat = String(electorExt.geolocalizacion.lat)
+        encontradaLng = String(electorExt.geolocalizacion.lng)
+      } else if (electorExt.lat && electorExt.lng) {
         encontradaLat = String(electorExt.lat)
         encontradaLng = String(electorExt.lng)
-      } else if (electorExt.ubicacion?.lat && electorExt.ubicacion?.lng) {
-        // Subobjeto de ubicación embebido
-        encontradaLat = String(electorExt.ubicacion.lat)
-        encontradaLng = String(electorExt.ubicacion.lng)
       } else if (electorExt.location?.coordinates && Array.isArray(electorExt.location.coordinates)) {
-        // Estructura clásica GeoJSON [lng, lat] de MongoDB
-        encontradaLat = String(electorExt.location.coordinates[1])
         encontradaLng = String(electorExt.location.coordinates[0])
-      } else if (electorExt.coordenadas?.lat && electorExt.coordenadas?.lng) {
-        // Variante en castellano
-        encontradaLat = String(electorExt.coordenadas.lat)
-        encontradaLng = String(electorExt.coordenadas.lng)
+        encontradaLat = String(electorExt.location.coordinates[1])
       }
 
       // 3. Forzamos la actualización inmediata del estado local para renderizar el botón de Maps
@@ -124,17 +121,22 @@ export function PadronView({
   const ejecutarGuardado = async () => {
     if (!selectedElector || !calle || !barrio || !lat || !lng) return
     setIsSaving(true)
+
+    // OBJETO DE DEPURACIÓN: Inspección en consola antes de enviar al backend
+    const datosEnviar = {
+      electorId: selectedElector._id,
+      calle,
+      barrio,
+      lat,
+      lng
+    }
+    console.log("%c🚀 [DEBUG FRONTEND] Datos listos para enviar al Server/Server Action:", "background: #10b981; color: #fff; font-weight: bold; padding: 4px;", datosEnviar);
+
     try {
-      await onActualizarElector({
-        electorId: selectedElector._id,
-        calle,
-        barrio,
-        lat,
-        lng
-      })
+      await onActualizarElector(datosEnviar)
       handleSelectElector(null)
     } catch (e) {
-      console.error(e)
+      console.error("❌ [DEBUG FRONTEND] Error al ejecutar onActualizarElector:", e)
     } finally {
       setIsSaving(false)
     }
@@ -296,7 +298,7 @@ export function PadronView({
                   {lat && lng ? (
                     <div className="space-y-2">
                       <a
-                        href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
+                        href={`http://maps.google.com/?q=${lat},${lng}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full h-11 text-xs font-bold rounded-md bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 transition-all shadow-md uppercase tracking-wider"
@@ -371,4 +373,4 @@ export function PadronView({
       )}
     </div>
   )
-}
+} 

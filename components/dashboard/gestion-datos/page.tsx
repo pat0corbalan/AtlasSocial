@@ -1,5 +1,3 @@
-// components/dashboard/gestion-datos/page.tsx
-
 "use client"
 
 import React, { useEffect, useState } from "react"
@@ -91,11 +89,9 @@ export function GestionDatos() {
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
             calle: formData.calle,
             barrio: formData.barrio,
-
             geolocalizacion: {
               type: "Point",
               coordinates: [
@@ -103,7 +99,6 @@ export function GestionDatos() {
                 Number(formData.lat),
               ],
             },
-
             visitado: true,
           }),
         }
@@ -117,14 +112,21 @@ export function GestionDatos() {
         )
       }
 
+      // Sincronizamos usando "as any" para evitar conflicto de tipos con la firma estricta de geolocalizacion
       setElectores((prev) =>
         prev.map((e) =>
           e._id === formData.electorId
-            ? {
+            ? ({
                 ...e,
                 visitado: true,
                 barrio: formData.barrio,
-              }
+                calle: formData.calle,
+                domicilio: formData.calle,
+                geolocalizacion: {
+                  type: "Point",
+                  coordinates: [Number(formData.lng), Number(formData.lat)]
+                }
+              } as any)
             : e
         )
       )
@@ -132,7 +134,6 @@ export function GestionDatos() {
       alert("Elector actualizado correctamente.")
     } catch (error: any) {
       console.error(error)
-
       alert(
         error?.message ||
           "No se pudo actualizar el elector."

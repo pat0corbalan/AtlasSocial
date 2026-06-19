@@ -22,29 +22,29 @@ export interface Relevamiento {
   }
 }
 
-// types.ts
 export interface Elector {
-  _id: string;
-  nOrden: number;
-  apellidoNombre: string;
-  documento: {
-    tipo: string;
-    nro: number;
-  };
-  mesa: string;
-  circuito?: string;
-  seccion?: string;
-  domicilio?: string;
-  anioNacimiento?: number;
-  
-  // Nuevos campos para el relevamiento en terreno
-  visitado: boolean;
-  fechaVisita?: string;
+  _id: string
+  distrito: string
+  seccion: string
+  circuito: string
+  mesa: string
+  nOrden: number
+  apellidoNombre: string
+  domicilio: string
+  calle?: string
+  barrio?: string
   geolocalizacion?: {
-    lat: number;
-    lng: number;
-  };
-  barrio?: string;
+    type: "Point"
+    coordinates: [number, number] // [longitud, latitud]
+  }
+  visitado?: boolean
+  documento: {
+    nro: number
+    tipo: string
+  }
+  anioNacimiento: number
+  voto: boolean
+  procesadoEn?: string | Date
 }
 
 export type SortKey =
