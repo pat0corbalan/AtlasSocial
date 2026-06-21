@@ -38,7 +38,7 @@ interface PadronViewProps {
   }) => Promise<void>
 }
 
-const BARRIOS_SANTIAGO = ["Challua", "Calle bs as y 8 de abril", "Norte", "Sauce", "Lourdes y Belgrano", "Casanova", "Sur", "Pueblo nuevo", "Centro"]
+const BARRIOS_SANTIAGO = ["Boca de urna","Challua", "Calle bs as y 8 de abril", "Norte", "Sauce", "Lourdes y Belgrano", "Casanova", "Sur", "Pueblo nuevo", "Centro"]
 
 export function PadronView({
   electores,

@@ -12,7 +12,7 @@ const RelevamientoSchema = new Schema(
     // ─── Datos del domicilio ────────────────────────────────────
     calle: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
 

@@ -252,6 +252,7 @@ export function Estadisticas() {
   tala: "Tala",
   indeciso: "Indeciso",
   hugul: "Hugul",
+  "Boca de urna": "Boca de urna",
   otro: "Otro",
 }
 
@@ -281,30 +282,43 @@ const votoColors: Record<string, string> = {
   // BARRIOS
   // ─────────────────────────────────────────────────────────────
 
-  const barriosMap: Record<string, number> =
-    {}
+  const barriosMap: Record<
+    string,
+    {
+      censos: number
+      relevamientos: Relevamiento[]
+    }
+  > = {}
 
   relevamientos.forEach((r) => {
     if (!r.barrio) return
 
-    barriosMap[r.barrio] =
-      (barriosMap[r.barrio] || 0) + 1
+    if (!barriosMap[r.barrio]) {
+      barriosMap[r.barrio] = {
+        censos: 0,
+        relevamientos: [],
+      }
+    }
+
+    barriosMap[r.barrio].censos += 1
+
+    barriosMap[r.barrio].relevamientos.push(r)
   })
 
   const barriosData = Object.entries(
     barriosMap
   )
-    .map(([barrio, censos]) => ({
+    .map(([barrio, data]) => ({
       barrio,
 
-      censos,
+      censos: data.censos,
 
-      completado: censos + 10,
+      relevamientos: data.relevamientos,
+
+      completado: data.censos + 10,
     }))
     .sort((a, b) => b.censos - a.censos)
-
-
-
+    
   // ─────────────────────────────────────────────────────────────
   // LOADING
   // ─────────────────────────────────────────────────────────────
@@ -515,6 +529,26 @@ const votoColors: Record<string, string> = {
               (b.censos / b.completado) * 100
             )
 
+            // contar votos del barrio
+            const votosBarrio: Record<string, number> = {}
+
+            b.relevamientos.forEach((r) => {
+              if (!r.voto) return
+
+              votosBarrio[r.voto] =
+                (votosBarrio[r.voto] || 0) + 1
+            })
+
+            // voto más elegido
+            const votoGanador =
+              Object.entries(votosBarrio).sort(
+                (a, b) => b[1] - a[1]
+              )[0]?.[0]
+
+            // color del ganador
+            const color =
+              votoColors[votoGanador] || "#64748b"
+
             return (
               <div key={b.barrio}>
                 <div className="flex justify-between items-center mb-1.5">
@@ -522,16 +556,30 @@ const votoColors: Record<string, string> = {
                     {b.barrio}
                   </span>
 
-                  <span className="text-[10px] font-bold text-muted-foreground bg-accent px-1.5 py-0.5 rounded">
-                    {b.censos}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    {votoGanador && (
+                      <span
+                        className="text-[10px] font-bold px-2 py-0.5 rounded text-white"
+                        style={{
+                          backgroundColor: color,
+                        }}
+                      >
+                        {votoLabels[votoGanador]}
+                      </span>
+                    )}
+
+                    <span className="text-[10px] font-bold text-muted-foreground bg-accent px-1.5 py-0.5 rounded">
+                      {b.censos}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
                   <div
-                    className="h-full rounded-full transition-all duration-700 ease-out bg-primary"
+                    className="h-full rounded-full transition-all duration-700 ease-out"
                     style={{
                       width: `${pct}%`,
+                      backgroundColor: color,
                     }}
                   />
                 </div>

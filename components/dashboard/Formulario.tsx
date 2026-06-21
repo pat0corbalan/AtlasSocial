@@ -185,6 +185,7 @@ function StepDomicilio({
               }
             >
               <option value="">Seleccionar barrio</option>
+              <option value="Boca de urna">Boca de urna</option>
               <option value="Challua">Challua</option>
               <option value="Calle bs as y 8 de abril">Calle bs as y 8 de abril</option>
               <option value="Norte">Norte</option>
