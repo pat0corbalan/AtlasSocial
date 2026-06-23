@@ -64,7 +64,7 @@ const STEPS = [
 const intencionVotoOptions = [
   { value: "pancho",       label: "Pancho",     color: "bg-blue-600 text-white border-blue-600"       },
   { value: "sole",label: "Sole",  color: "bg-slate-600 text-white border-slate-600"     },
-  { value: "tala",    label: "PJ: TALA",  color: "bg-red-600 text-white border-red-600"         },
+  { value: "tala",    label: "Tala",  color: "bg-red-600 text-white border-red-600"         },
   { value: "hugul",           label: "Hugul",         color: "bg-gray-400 text-white border-gray-400"       },
   { value: "indeciso",          label: "Indeciso",        color: "bg-amber-500 text-white border-amber-500"     },
   { value: "otro",           label: "Otro",         color: "bg-black-400 text-white border-black-400"       },
@@ -672,7 +672,7 @@ function StepInfraestructura({
     <div className="space-y-4">
       <StepHeading icon={<Zap className="w-5 h-5" />} title="Infraestructura del Barrio" />
       <p className="text-sm text-muted-foreground">
-        Marque los servicios disponibles en el domicilio:
+        Marque los necesidades del barrio:
       </p>
       <div className="grid grid-cols-2 gap-3">
         {infraestructuraItems.map(({ id, label, Icon }) => {
